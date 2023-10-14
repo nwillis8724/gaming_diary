@@ -1,8 +1,8 @@
 class GamesController < ApplicationController
 
     def index
-        games = Game.all
-        render json: games
+        games = Game.includes(:comments)
+        render json: games, include: :comments
     end
 
     def show
