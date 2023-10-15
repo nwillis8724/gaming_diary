@@ -19,6 +19,7 @@ class GamesController < ApplicationController
             else
                 render json: { errors: game.errors.full_messages }, status: :unprocessable_entity
             end
+        end
     end
 
     def update
@@ -34,4 +35,5 @@ class GamesController < ApplicationController
     def game_params
         params.permit(:title, :platform, :genre, :release_date)
     end
+
 end
