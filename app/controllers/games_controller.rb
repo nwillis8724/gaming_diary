@@ -1,7 +1,7 @@
 class GamesController < ApplicationController
 
     def index
-        games = Game.includes(:comments)
+        games = Game.includes(:comments).all
         render json: games, include: :comments
     end
 
@@ -11,7 +11,14 @@ class GamesController < ApplicationController
     end
 
     def create
-
+        if session[:user_id].present?
+            game = Game.create(game_params)
+            
+            if game.valid?
+                render json: game
+            else
+                render json: { errors: game.errors.full_messages }, status: :unprocessable_entity
+            end
     end
 
     def update
@@ -20,5 +27,11 @@ class GamesController < ApplicationController
 
     def destroy
 
+    end
+
+    private
+
+    def game_params
+        params.permit(:title, :platform, :genre, :release_date)
     end
 end
