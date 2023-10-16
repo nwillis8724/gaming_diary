@@ -6,7 +6,7 @@ import { useHistory } from "react-router-dom";
 
 function App() {
   const [games, setGames] = useState([])
-
+  
   useEffect(() =>{
   fetch("/games")
       .then((r) => r.json())
