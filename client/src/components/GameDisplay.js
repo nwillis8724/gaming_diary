@@ -1,10 +1,20 @@
 import React from "react";
 
 
-function GameDisplay() {
+function GameDisplay({games}) {
+    console.log(games, "display")
     return (
         <div>
-            <h1> This is the page of displaying games</h1>
+            {games.map((game, i) =>{
+                return(
+                    <div>
+                        <h1>{game.title}</h1>
+                        <h2>Platform: {game.platform}</h2>
+                        <h3>Genre: {game.genre}</h3>
+                    </div>
+                )
+            })}
+            <h1> </h1>
         </div>
     )
 }
