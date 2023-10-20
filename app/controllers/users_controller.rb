@@ -10,23 +10,22 @@ class UsersController < ApplicationController
         end
     end
 
-    def show 
-        user = User.find(params[:id])
-
-        render json: user
-    end
-
-    def index
-        users = User.all
-
-        render json: users
-    end
-
-    def update
-
+    def show
+        if session[:user_id].present?
+          user = User.find_by(id: session[:user_id])
+          if user
+            render json: user
+          else
+            render json: { errors: ["User not found"] }, status: :not_found
+          end
+        else
+          render json: { errors: ["Unauthorized"] }, status: :unauthorized
+        end
     end
 
     def destroy
-
+        user = User.find(params[:id])
+        user.destroy
+        head :no_content
     end
 end

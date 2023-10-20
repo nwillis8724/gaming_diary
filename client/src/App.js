@@ -1,26 +1,42 @@
 import './App.css';
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import GameDisplay from './components/GameDisplay';
+import Login from './components/Login';
 import { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 
 function App() {
-  const [games, setGames] = useState([])
-  
-  useEffect(() =>{
-  fetch("/games")
-      .then((r) => r.json())
-      .then((games) => setGames(games))
-  }, [])
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    fetch("/me").then((r) => {
+      if (r.ok) {
+        r.json().then((user) => setUser(user));
+      }
+    });
+  }, []);
+
+  function onLogin(user) {
+    setUser(user);
+  }
 
   return (
     <BrowserRouter>
       <div>
         <Routes>
-          <Route exact path="/" element={<GameDisplay games={games}/>} />
+          <Route
+            exact
+            path="/games"
+            element={user ? <GameDisplay /> : <Navigate to="/" />}
+          />
+          <Route
+            exact
+            path="/"
+            element={user ? <Navigate to="/games"/> : <Login setUser={onLogin} user={user} />}
+          />
         </Routes>
       </div>
-  </BrowserRouter>
+    </BrowserRouter>
   );
 }
 
