@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom"; 
 
 
 function Login({ setUser, user }) {
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
     const [errors, setErrors] = useState([]);
-    const navigate = useNavigate()
 
 
     function loginUser (e){
@@ -36,8 +34,8 @@ function Login({ setUser, user }) {
         <div>
             <form onSubmit={loginUser}>
                 <h2>Welcome</h2>
-                <input id="username" value={username} onChange={(e) => setUsername(e.target.value)} placeholder="user"></input>
-                <input id="password" value ={password} onChange={(e) => setPassword(e.target.value)} type="password" placeholder="password"></input>
+                <input className="username" value={username} onChange={(e) => setUsername(e.target.value)} placeholder="user"></input>
+                <input className="password" value ={password} onChange={(e) => setPassword(e.target.value)} type="password" placeholder="password"></input>
                 <button>Login</button>
             </form>
         </div>

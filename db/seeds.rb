@@ -71,6 +71,8 @@
 #   game: Game.find_by(title: "Stardew Valley")
 # )
 
+
+
 # zelda = Game.find(1)
 
 # zelda.update(
@@ -81,23 +83,22 @@
 #     image: "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcTvv7AdnDOiUfeZAH4NWSNPqjMss3NSuo7nISf7Y3k4bskoR0ok"
 # )
 
+# sims = Game.find(2)
 
-sims = Game.find(2)
+# sims.update(
+#     title: "The Sims 4",
+#     genre: "Sim",
+#     platform: "All",
+#     release_date: "September 2014",
+#     image: "https://m.media-amazon.com/images/I/71otyq1xFNL._AC_UF894,1000_QL80_.jpg"
+# )
 
-sims.update(
-    title: "The Sims 4",
-    genre: "Sim",
-    platform: "All",
-    release_date: "September 2014",
-    image: "https://m.media-amazon.com/images/I/71otyq1xFNL._AC_UF894,1000_QL80_.jpg"
-)
+# stardew = Game.find(3)
 
-stardew = Game.find(3)
-
-stardew.update(
-    title: "Stardew Valley",
-    genre: "Sim",
-    platform: "All",
-    release_date: "February 2016",
-    image: "https://cdn.akamai.steamstatic.com/steam/apps/413150/capsule_616x353.jpg?t=1666917466"
-)
+# stardew.update(
+#     title: "Stardew Valley",
+#     genre: "Sim",
+#     platform: "All",
+#     release_date: "February 2016",
+#     image: "https://cdn.akamai.steamstatic.com/steam/apps/413150/capsule_616x353.jpg?t=1666917466"
+# )

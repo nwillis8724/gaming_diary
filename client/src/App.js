@@ -4,6 +4,8 @@ import GameDisplay from './components/GameDisplay';
 import Login from './components/Login';
 import { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
+import NavBar from './components/NavBar';
+import SignUp from './components/SignUp';
 
 function App() {
   const [user, setUser] = useState(null);
@@ -20,19 +22,31 @@ function App() {
     setUser(user);
   }
 
+  function onLogout() {
+    setUser(null);
+  }
+
+
   return (
+    
     <BrowserRouter>
-      <div>
+      <div className='app'>
+    <NavBar user={user} setUser={onLogout}/> 
         <Routes>
           <Route
             exact
-            path="/games"
+            path="/games_display"
             element={user ? <GameDisplay /> : <Navigate to="/" />}
           />
           <Route
             exact
             path="/"
-            element={user ? <Navigate to="/games"/> : <Login setUser={onLogin} user={user} />}
+            element={user ? <Navigate to="/games_display"/> : <Login setUser={onLogin} user={user} />}
+          />
+          <Route
+            exact
+            path="/sign_up"
+            element={<SignUp/>}
           />
         </Routes>
       </div>

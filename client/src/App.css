@@ -1,63 +1,69 @@
-.App {
-  display: grid;
-  grid-template-columns: 29%;
-  grid-gap: 10px; /* Adjust the gap between game cards as needed */
-  justify-content: center;
-  align-content: flex-start;
-  min-height: 100vh;
-  background-color: #f0f0f0; /* Background color for the whole container */
-  overflow-y: auto; /* Enable vertical scrolling for the grid */
-}
 
-.game-card {
-  background-color: #fff;
-  border: 1px solid #ddd;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+.app{
+  
+}
+.game_card {
+  border: 1px solid #ccc;
   border-radius: 5px;
   padding: 10px;
-  text-align: center;
-  height: 20%; /* Set the height of each game card to 20% */
+  margin: 10px auto;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: #f5f5f5;
+  max-width: 500px;
 }
 
-.close-button {
-  background-color: #ff0000;
-  color: #fff;
-  border: none;
-  border-radius: 50%;
-  padding: 8px 12px;
-  cursor: pointer;
-  position: absolute;
-  top: 10px;
-  right: 10px;
+
+/* Style for the game title */
+.game_card #game_title {
+  font-size: 20px;
+  margin: 10px 0;
 }
 
-.game-title {
-  font-size: 24px;
-  margin: 20px 0;
-}
-
-.game-image {
+/* Style for the game image */
+.game_card .game_image {
   max-width: 100%;
   height: auto;
+  margin: 10px 0;
 }
 
-.game-details {
+/* Style for platform and genre text */
+.game_card .game_card_text {
   font-size: 16px;
+}
+
+/* Style for the comment section */
+.comment_section {
   margin: 10px 0;
 }
 
-.comment-section {
-  margin: 20px 0;
-}
-
+/* Style for individual comments */
 .comment {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 5px;
+  margin: 5px 0;
+  background-color: #f9f9f9;
+}
+
+/* Style for the comment input and 'Add' button */
+.comment_section form {
   margin: 10px 0;
-  padding: 10px;
-  background-color: #f5f5f5;
-  border: 1px solid #ddd;
+  display: flex;
+}
+
+.comment_section input {
+  flex: 1;
+  padding: 5px;
+  border: 1px solid #ccc;
   border-radius: 5px;
 }
 
-.comment p {
-  margin: 5px 0;
+.comment_section button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  margin-left: 5px;
+  cursor: pointer;
 }
