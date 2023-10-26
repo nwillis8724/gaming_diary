@@ -1,11 +1,12 @@
-import React from "react"
+import React from "react";
 import { NavLink, useLocation } from "react-router-dom";
 
-function NavBar({setUser, user}){
 
+function NavBar({ setUser, user }) {
   const location = useLocation();
   const isSignUpPage = location.pathname === "/sign_up";
-
+  const isProfilePage = location.pathname === "/me";
+  const isHomePage = location.pathname === "/games_display" || location.pathname === "/login" || isProfilePage;
   const linkStyles = {
     display: "inline-block",
     padding: "10px 15px",
@@ -19,55 +20,58 @@ function NavBar({setUser, user}){
     cursor: "pointer",
     transition: "background-color 0.3s",
   };
-  
 
-  function handleLogout(){
+  function handleLogout() {
     fetch('/logout', {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then(r => {
+        if (r.ok) {
+          setUser();
+          console.log('Logout successful');
+        } else {
+          console.error('Logout failed');
+        }
       })
-        .then(r => {
-          if (r.ok) {
-            setUser()
-            console.log('Logout successful');
-          } else {
-            console.error('Logout failed');
-          }
-        })
-        .catch(error => {
-          console.error('An error occurred during the logout process:', error);
-        });
-    };
-  
-
+      .catch(error => {
+        console.error('An error occurred during the logout process:', error);
+      });
+  }
 
   return (
     <div id="navbar">
-         {user ? 
+      {user ? (
+        <div>
+          {!isProfilePage && (
+            <NavLink
+              style={linkStyles}
+              to="/me"
+            >
+              Profile
+            </NavLink>
+          )}
 
-         <div>
+          <NavLink
+            style={linkStyles}
+            onClick={handleLogout}
+          >
+            Logout
+          </NavLink>
 
-          
-         <NavLink 
-         style={linkStyles}
-         onClick={handleLogout} 
-         >
-             Profile
-         </NavLink>
+          {!isHomePage && (
+            <NavLink
+              style={linkStyles}
+              to="/"
+            >
+              Home
+            </NavLink>
+          )}
 
-         <NavLink 
-         style={linkStyles}
-         onClick={handleLogout} 
-         >
-             Logout
-         </NavLink>
-
-         </div>
-
-        :
-
+        </div>
+      ) : (
         !isSignUpPage && (
           <NavLink
             to="/sign_up"
@@ -77,11 +81,9 @@ function NavBar({setUser, user}){
             Sign Up
           </NavLink>
         )
-
-}
+      )}
     </div>
-  )
+  );
+}
 
-};
-
-export default NavBar
+export default NavBar;
