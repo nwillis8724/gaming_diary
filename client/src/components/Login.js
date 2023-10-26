@@ -31,13 +31,15 @@ function Login({ setUser, user }) {
     }
 
     return (
-        <div>
-            <form onSubmit={loginUser}>
-                <h2>Welcome</h2>
-                <input className="username" value={username} onChange={(e) => setUsername(e.target.value)} placeholder="user"></input>
-                <input className="password" value ={password} onChange={(e) => setPassword(e.target.value)} type="password" placeholder="password"></input>
-                <button>Login</button>
-            </form>
+        <div className="login_container">
+            <div className="login_card">
+                <form onSubmit={loginUser}>
+                    <h2>Log In</h2>
+                    <input className="username" value={username} onChange={(e) => setUsername(e.target.value)} placeholder="user"></input>
+                    <input className="password" value ={password} onChange={(e) => setPassword(e.target.value)} type="password" placeholder="password"></input>
+                    <button>Login</button>
+                </form>
+            </div>
         </div>
     )
 }

@@ -1,21 +1,25 @@
 import React from "react"
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 
 function NavBar({setUser, user}){
 
+  const location = useLocation();
+  const isSignUpPage = location.pathname === "/sign_up";
+
   const linkStyles = {
     display: "inline-block",
-    width: "5%",
-    height: "1%",
-    padding: ".75%",
-    background: "black",
+    padding: "10px 15px",
     textDecoration: "none",
-    color: "white",
-    cursor: "pointer",
-    border: "1px solid #ccc",
+    color: "black",
+    background: "#e0e0e0",
     borderRadius: "5px",
-    boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)", 
+    border: "1px solid black",
+    boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
+    marginRight: "10px",
+    cursor: "pointer",
+    transition: "background-color 0.3s",
   };
+  
 
   function handleLogout(){
     fetch('/logout', {
@@ -41,7 +45,7 @@ function NavBar({setUser, user}){
 
   return (
     <div id="navbar">
-         {user? 
+         {user ? 
 
          <div>
 
@@ -64,13 +68,15 @@ function NavBar({setUser, user}){
 
         :
 
-        <NavLink
-        to="/sign_up"
-        exact
-        style={linkStyles}
-        >
-           Sign Up
-        </NavLink>
+        !isSignUpPage && (
+          <NavLink
+            to="/sign_up"
+            exact
+            style={linkStyles}
+          >
+            Sign Up
+          </NavLink>
+        )
 
 }
     </div>

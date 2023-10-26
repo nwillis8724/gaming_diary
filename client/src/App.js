@@ -26,27 +26,22 @@ function App() {
     setUser(null);
   }
 
-
   return (
-    
     <BrowserRouter>
       <div className='app'>
-    <NavBar user={user} setUser={onLogout}/> 
+        <NavBar user={user} setUser={onLogout} /> 
         <Routes>
           <Route
-            exact
             path="/games_display"
-            element={user ? <GameDisplay /> : <Navigate to="/" />}
+            element={user ? <GameDisplay user={user} /> : <Navigate to="/" />}
           />
           <Route
-            exact
             path="/"
-            element={user ? <Navigate to="/games_display"/> : <Login setUser={onLogin} user={user} />}
+            element={user ? <Navigate to="/games_display" /> : <Login setUser={onLogin} user={user} />}
           />
-          <Route
-            exact
-            path="/sign_up"
-            element={<SignUp/>}
+          <Route 
+            path="/sign_up" 
+            element={<SignUp />} 
           />
         </Routes>
       </div>

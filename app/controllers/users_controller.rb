@@ -28,4 +28,10 @@ class UsersController < ApplicationController
         user.destroy
         head :no_content
     end
+    
+    private
+
+    def user_params
+      params.permit(:username, :password)
+    end
 end

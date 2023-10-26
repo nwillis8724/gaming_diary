@@ -1,7 +1,39 @@
-
-.app{
-  
+/* Style for the login card */
+.login_card {
+  max-width: 300px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #fff;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
 }
+
+/* Style for the username and password inputs */
+.username,
+.password {
+  width: 90%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+/* Style for the login button */
+.login_card button {
+  width: 100%;
+  padding: 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.login_card button:hover {
+  background-color: #0056b3;
+}
+
 .game_card {
   border: 1px solid #ccc;
   border-radius: 5px;
@@ -58,7 +90,8 @@
   border-radius: 5px;
 }
 
-.comment_section button {
+
+.comment_section .submit_button {
   background-color: #007bff;
   color: #fff;
   border: none;
@@ -66,4 +99,63 @@
   padding: 5px 10px;
   margin-left: 5px;
   cursor: pointer;
+}
+
+.delete_button {
+  float: right;
+  width: 50px;
+  height: 50px;
+  border-radius: 25px;
+  border: 2px solid rgb(231, 50, 50);
+  background-color: #fff;
+  cursor: pointer;
+  box-shadow: 0 0 10px #333;
+  overflow: hidden;
+  transition: .5s;
+  font-size: 20px;
+}
+
+.comment_section .delete_button {
+  width: 25px;
+  height: 25px;
+  font-size: 7px;
+}
+
+.delete_button:hover {
+  background-color: rgb(245, 207, 207);
+  transform: scale(1.2);
+  box-shadow: 0 0 4px #111;
+  transition: .3s;
+}
+
+.signup_form {
+  max-width: 300px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #fff;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+.signup_form input {
+  width: 90%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.signup_form button {
+  width: 100%;
+  padding: 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.signup_form button:hover {
+  background-color: #0056b3;
 }

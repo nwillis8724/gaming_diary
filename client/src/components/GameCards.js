@@ -1,37 +1,11 @@
-sudo service postgresql start
-
- npm run build --prefix client
-
- git add .
- git commit -m ""
- git push -u origin main
-
-To-do:
-    Sign Up
-    Make a seperate component for comments sections
-
-
-    below is code that works before messing with it
 import React from "react";
 import { useState, useEffect } from "react";
-import Comments from "./Comments";
 
+function GameCards({game, gamesArray, user, i, setGamesArray}){
+    const [commentValues, setCommentValues] = useState([""])
+    const [ratingValues, setRatingValues] = useState([""])
 
-
-function GameDisplay({user}) {
-  const [games, setGames] = useState([]);
-  const [commentValues, setCommentValues] = useState([""])
-  const [ratingValues, setRatingValues] = useState([""])
-  const [updatedComments, setUpdatedComments] = useState([])
-
-
-    useEffect(() => {
-        fetch("/games")
-          .then((r) => r.json())
-          .then((games) => setGames(games));
-      }, [updatedComments]);
-
-      function resetCommentValue(i) {
+    function resetCommentValue(i) {
         const newCommentValues = [...commentValues];
         newCommentValues[i] = "";
         setCommentValues(newCommentValues);
@@ -65,13 +39,13 @@ function GameDisplay({user}) {
             return response.json();
           })
           .then((newComment) => {
-            const updatedGames = games.map((g) => {
+            const updatedGames = gamesArray.map((g) => {
               if (g.id === game.id) {
                 g.comments.push(newComment);
               }
               return g;
             });
-            setGames(updatedGames);
+            setGamesArray(updatedGames);
           })
           .catch((error) => {
             console.error('Error adding comment:', error);
@@ -90,25 +64,22 @@ function GameDisplay({user}) {
             }
           })
           .then(() => {
-            const updatedGames = games.map((game) => {
+            const updatedGames = gamesArray.map((game) => {
               if (game.id === comment.game_id) {
                 game.comments = game.comments.filter((c) => c.id !== comment.id);
               }
               return game;
             });
       
-            setGames(updatedGames);
+            setGamesArray(updatedGames);
           })
           .catch((error) => {
             console.error('Error deleting comment:', error);
           });
       }
 
-      return (
-    <div className="App">
-      {games.map((game, i) => {
-        return (
-          <div className="game_card"  key={i}>
+    return(
+        <div className="game_card"  key={i}>
             <button className="delete_button"> 🗑️ </button>
             <h1 className="game_card_text" id="game_title">
               {game.title}
@@ -153,11 +124,7 @@ function GameDisplay({user}) {
               </div>
             </div>
           </div>
-        );
-      })}
-      <h1> </h1>
-    </div>
-  );
+    )
 }
 
-export default GameDisplay
+export default GameCards

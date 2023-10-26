@@ -23,7 +23,7 @@ rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_response
 
     def create
         if session[:user_id].present?
-            comment = Comment.create(game_params)
+            comment = Comment.create(comment_params)
             
             if comment.valid?
                 render json: comment
@@ -60,7 +60,7 @@ rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_response
     private
 
     def comment_params
-        params.permit(:text, :rating)
+        params.permit(:text, :rating, :game_id, :user_id)
     end
 
     def find_comment
