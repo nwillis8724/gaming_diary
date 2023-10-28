@@ -6,6 +6,7 @@ function NavBar({ setUser, user }) {
   const location = useLocation();
   const isSignUpPage = location.pathname === "/sign_up";
   const isProfilePage = location.pathname === "/me";
+  const isUploadPage = location.pathname === "/upload_game";
   const isHomePage = location.pathname === "/games_display" || location.pathname === "/login" || isProfilePage;
   const linkStyles = {
     display: "inline-block",
@@ -14,6 +15,19 @@ function NavBar({ setUser, user }) {
     color: "black",
     background: "#e0e0e0",
     borderRadius: "5px",
+    border: "1px solid black",
+    boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
+    marginRight: "10px",
+    cursor: "pointer",
+    transition: "background-color 0.3s",
+  };
+  const addStyles = {
+    display: "inline-block",
+    padding: "10px 15px",
+    textDecoration: "none",
+    color: "black",
+    background: "rgb(25, 195, 125)",
+    borderRadius: "100px",
     border: "1px solid black",
     boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
     marginRight: "10px",
@@ -45,6 +59,16 @@ function NavBar({ setUser, user }) {
     <div id="navbar">
       {user ? (
         <div>
+
+          {!isHomePage && (
+              <NavLink
+                style={linkStyles}
+                to="/"
+            >
+              Home
+            </NavLink>
+          )}
+
           {!isProfilePage && (
             <NavLink
               style={linkStyles}
@@ -61,12 +85,12 @@ function NavBar({ setUser, user }) {
             Logout
           </NavLink>
 
-          {!isHomePage && (
+          {!isUploadPage && (
             <NavLink
-              style={linkStyles}
-              to="/"
+              style={addStyles}
+              to="/upload_game"
             >
-              Home
+              +
             </NavLink>
           )}
 
@@ -75,7 +99,6 @@ function NavBar({ setUser, user }) {
         !isSignUpPage && (
           <NavLink
             to="/sign_up"
-            exact
             style={linkStyles}
           >
             Sign Up

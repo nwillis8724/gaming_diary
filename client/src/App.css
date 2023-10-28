@@ -218,3 +218,55 @@
 .password_form button:hover {
   background-color: #0056b3;
 }
+
+.UploadCard {
+  background-color: #f5f5f5;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 20px;
+  width: 300px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.UploadCard h1 {
+  font-size: 24px;
+  color: #333;
+}
+
+.UploadCard form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.UploadCard input {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 94%;
+  font-size: 16px;
+}
+
+.UploadCard input::placeholder {
+  color: #999;
+}
+
+.UploadCard input:focus {
+  border-color: #007bff; /* Change the border color when focused */
+}
+
+.UploadCard button {
+  width: 100%;
+  padding: 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.UploadCard button:hover{
+  background-color: #0056b3;
+}

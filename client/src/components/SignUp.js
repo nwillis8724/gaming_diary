@@ -1,27 +1,30 @@
 import { useState } from "react"
-import { useNavigate } from "react-router-dom"
 
 function SignUp({inSignUp}){
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
-    const navigate = useNavigate()
-
-    // onSubmit post to /SignUp
-    // navigate back to login
 
 
     function handleSignUp(e) {
         e.preventDefault()
-        console.log("hello")
 
         fetch("/signup", {
             method: "POST",
             headers: {
-            "Content-Type": "application/json",
+                "Content-Type": "application/json",
             },
             body: JSON.stringify({ username, password }),
         })
-        
+        .then((response) => {
+            if (response.ok) {
+                window.location.reload();
+            } else {
+                console.log("Signup failed. Please try again.");
+            }
+        })
+        .catch((error) => {
+            console.error("An error occurred:", error);
+        });
     }
     
     return (

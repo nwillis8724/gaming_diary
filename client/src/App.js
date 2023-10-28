@@ -7,6 +7,7 @@ import { useHistory } from "react-router-dom";
 import NavBar from './components/NavBar';
 import SignUp from './components/SignUp';
 import Profile from './components/Profile';
+import UploadGame from './components/UploadGame';
 
 function App() {
   const [user, setUser] = useState(null);
@@ -42,11 +43,15 @@ function App() {
           />
           <Route 
             path="/sign_up" 
-            element={<SignUp />} 
+            element= {<SignUp />}
           />
           <Route 
             path="/me" 
             element={user ? <Profile user={user} /> : <Navigate to="/" />} 
+          />
+                    <Route 
+            path="/upload_game" 
+            element={<UploadGame />} 
           />
         </Routes>
       </div>

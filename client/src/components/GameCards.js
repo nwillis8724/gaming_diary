@@ -60,7 +60,7 @@ function GameCards({game, gamesArray, user, i, setGamesArray}){
         })
           .then((response) => {
             if (!response.ok) {
-              throw new Error('Network response was not ok');
+              console.log('Network response was not ok');
             }
           })
           .then(() => {
@@ -74,19 +74,38 @@ function GameCards({game, gamesArray, user, i, setGamesArray}){
             setGamesArray(updatedGames);
           })
           .catch((error) => {
-            console.error('Error deleting comment:', error);
+            console.error('Error deleting game:', error);
           });
       }
 
+      function handleDeleteGame(game) {
+        fetch(`/games/${game.id}`, {
+          method: "DELETE",
+        })
+          .then((response) => {
+            if (!response.ok) {
+              console.log('Network response was not ok');
+            }
+          })
+          .then(() => {
+            const updatedGames = gamesArray.filter((g) => g.id !== game.id);
+            setGamesArray(updatedGames);
+        })
+        .catch((error) => {
+            console.error('Error deleting game:', error);
+        });
+    }
+
     return(
         <div className="game_card"  key={i}>
-            <button className="delete_button"> 🗑️ </button>
+            <button className="delete_button" onClick={(e) => handleDeleteGame(game)}> 🗑️ </button>
             <h1 className="game_card_text" id="game_title">
               {game.title}
             </h1>
             <img className="game_image" src={game.image} alt={game.title} />
             <h2 className="game_card_text">Platform: {game.platform}</h2>
             <h3 className="game_card_text">Genre: {game.genre}</h3>
+            <h3 className="game_card_text">Release Date: {game.release_date}</h3>
             <div className="comment_section">
               {game.comments && game.comments.length > 0 ? (
                 game.comments.map((comment, i) => (
