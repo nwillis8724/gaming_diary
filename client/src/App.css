@@ -183,27 +183,23 @@
   margin-bottom: 20px;
 }
 
-.username_form,
 .password_form {
   margin-bottom: 20px;
 }
 
-.username_form p,
 .password_form p {
   font-weight: bold;
   margin-top: 10px;
 }
 
-.username_form input,
 .password_form input {
-  width: 100%;
+  width: 94%;
   padding: 10px;
   margin-bottom: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
 }
 
-.username_form button,
 .password_form button {
   width: 100%;
   padding: 10px;
@@ -214,12 +210,11 @@
   cursor: pointer;
 }
 
-.username_form button:hover,
 .password_form button:hover {
   background-color: #0056b3;
 }
 
-.UploadCard {
+.upload_card {
   background-color: #f5f5f5;
   border: 1px solid #ccc;
   border-radius: 5px;
@@ -229,19 +224,19 @@
   text-align: center;
 }
 
-.UploadCard h1 {
+.upload_card h1 {
   font-size: 24px;
   color: #333;
 }
 
-.UploadCard form {
+.upload_card form {
   display: flex;
   flex-direction: column;
   gap: 10px;
   margin-top: 20px;
 }
 
-.UploadCard input {
+.upload_card input {
   padding: 8px;
   border: 1px solid #ccc;
   border-radius: 5px;
@@ -249,15 +244,15 @@
   font-size: 16px;
 }
 
-.UploadCard input::placeholder {
+.upload_card input::placeholder {
   color: #999;
 }
 
-.UploadCard input:focus {
+.upload_card input:focus {
   border-color: #007bff; /* Change the border color when focused */
 }
 
-.UploadCard button {
+.upload_card button {
   width: 100%;
   padding: 10px;
   background-color: #007bff;
@@ -267,6 +262,6 @@
   cursor: pointer;
 }
 
-.UploadCard button:hover{
+.upload_card button:hover{
   background-color: #0056b3;
 }

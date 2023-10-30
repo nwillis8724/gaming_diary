@@ -42,7 +42,7 @@ function UploadCard() {
 
     }
   return (
-    <div className="UploadCard">
+    <div className="upload_card">
       <h1>Upload Game</h1>
       <div>
         <form onSubmit={(e) => handleUpload(e)}>

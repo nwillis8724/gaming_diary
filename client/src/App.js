@@ -43,10 +43,10 @@ function App() {
           />
           <Route 
             path="/sign_up" 
-            element= {<SignUp />}
+            element= {user? <Navigate to="/games_display" /> : <SignUp />}
           />
           <Route 
-            path="/me" 
+            path="/profile" 
             element={user ? <Profile user={user} /> : <Navigate to="/" />} 
           />
                     <Route 

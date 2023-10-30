@@ -72,7 +72,7 @@ function NavBar({ setUser, user }) {
           {!isProfilePage && (
             <NavLink
               style={linkStyles}
-              to="/me"
+              to="/profile"
             >
               Profile
             </NavLink>
