@@ -4,6 +4,8 @@ import { useState, useEffect } from "react";
 function GameCards({game, gamesArray, user, i, setGamesArray}){
     const [commentValues, setCommentValues] = useState([""])
     const [ratingValues, setRatingValues] = useState([""])
+    const [commentUsers, setCommentUsers] = useState({});
+    
 
     function resetCommentValue(i) {
         const newCommentValues = [...commentValues];
@@ -113,6 +115,7 @@ function GameCards({game, gamesArray, user, i, setGamesArray}){
                     <button className="delete_button" onClick={(e) => handleDeleteComment(comment)}> 🗑️ </button>
                     <p>{comment.text}</p>
                     <p>{comment.rating}/5</p>
+                    <p>{comment.user.username}</p>
                   </div>
                 ))
               ) : (

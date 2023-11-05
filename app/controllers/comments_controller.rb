@@ -1,63 +1,44 @@
 class CommentsController < ApplicationController
 rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_response
+before_action :authorize
+
 
     def index
-        comments = Comment.all
-        
-        if session[:user_id].present?
-            render json: comments.as_json, status: :created
-        else 
-            render json: { errors: ["Unauthorized"]}, status: :unauthorized
-        end
+        comments = Comment.includes(:user).all
+        render json: comments.as_json(include: :user), status: :ok
     end
 
     def show
         comment = Comment.find(params[:id])
-        
-        if session[:user_id].present?
-            render json: comment
-        else
-            render json: { errors: ["Unauthorized"] }, status: :unauthorized
-        end
+        render json: comment
     end
 
     def create
-        if session[:user_id].present?
-            comment = Comment.create(comment_params)
-            
+        comment = Comment.create(comment_params)       
             if comment.valid?
                 render json: comment
             else
                 render json: { errors: comment.errors.full_messages }, status: :unprocessable_entity
             end
-        else
-            render json: { errors: ["Unauthorized"] }, status: :unauthorized
-        end
     end
 
     def update
         comment = find_comment
-
-        if session[:user_id].present?
-            comment.update(comment_params)
-            render json: comment
-        else
-            render json: { errors: ["Unauthorized"] }, status: :unauthorized
-        end
+        comment.update(comment_params)
+        render json: comment
     end
 
     def destroy
         comment = find_comment
-
-        if session[:user_id].present?
-            comment.destroy
-            head :no_content
-        else
-            render json: { errors: ["Unauthorized"] }, status: :unauthorized
-        end
+        comment.destroy
+        head :no_content
     end
 
     private
+
+    def authorize 
+        return render json: { error: "Not authorized" }, status: :unauthorized unless session.include? :user_id
+      end
 
     def comment_params
         params.permit(:text, :rating, :game_id, :user_id)

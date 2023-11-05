@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  before_action :authorize, only: [:show, :update, :destroy]
 
     def create
         user = User.create(user_params)
@@ -17,10 +18,8 @@ class UsersController < ApplicationController
           if user
             render json: user
           else
-            render json: { errors: ["User not found"] }, status: :not_found
+            user_not_found
           end
-        else
-          render json: { errors: ["Unauthorized"] }, status: :unauthorized
         end
     end
 
@@ -40,16 +39,22 @@ class UsersController < ApplicationController
             render json: { errors: user.errors.full_messages }, status: :unprocessable_entity
           end
         else
-          render json: { errors: ["User not found"] }, status: :not_found
+          user_not_found
         end
-      else
-        render json: { errors: ["Unauthorized"] }, status: :unauthorized
       end
     end
     
     private
 
+    def user_not_found
+      render json: { errors: ["User not found"] }, status: :not_found
+    end
+
     def user_params
       params.permit(:username, :password)
+    end
+
+    def authorize 
+      return render json: { error: "Not authorized" }, status: :unauthorized unless session.include? :user_id
     end
 end

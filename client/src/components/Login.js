@@ -7,28 +7,38 @@ function Login({ setUser, user }) {
     const [errors, setErrors] = useState([]);
 
 
-    function loginUser (e){
-        e.preventDefault()
-            fetch("/login", {
-                method: "POST",
-                headers: {
-                "Content-Type": "application/json",
-                },
-                body: JSON.stringify({ username, password }),
-            })
-            .then((r) => {
-                if (r.status === 401) {
-                    setErrors("Authentication failed");
-                } else if (!r.ok) {
-                    setErrors("An error occurred.");
-                } else {
-                    r.json().then((response) => {
-                        setUser(response);
-                        console.log("Login successful");
-                    });
-                }
-            })
-    }
+    function loginUser(e) {
+        e.preventDefault();
+    
+        fetch("/login", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ username, password }),
+        })
+        .then((r) => {
+            if (r.status === 401) {
+              r.json().then((data) => {
+                setErrors(data.error);
+
+                setTimeout(() => {
+                  setErrors("");
+                }, 3000);
+              });
+            } else if (!r.ok) {
+              setErrors("An error occurred.");
+            } else {
+              r.json().then((response) => {
+                setUser(response);
+                console.log("Login successful");
+              });
+            }
+          })
+          .catch((error) => {
+            console.error("Fetch error:", error);
+          });
+      }
 
     return (
         <div className="login_container">
@@ -39,6 +49,7 @@ function Login({ setUser, user }) {
                     <input className="password" value ={password} onChange={(e) => setPassword(e.target.value)} type="password" placeholder="password"></input>
                     <button>Login</button>
                 </form>
+                {errors && <p className="error">{errors}</p>} {/* Display error message */}
             </div>
         </div>
     )

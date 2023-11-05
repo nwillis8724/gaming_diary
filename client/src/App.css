@@ -214,6 +214,11 @@
   background-color: #0056b3;
 }
 
+.disclosure{
+  color: #666;
+  font-size: 12px;
+}
+
 .upload_card {
   background-color: #f5f5f5;
   border: 1px solid #ccc;
@@ -264,4 +269,9 @@
 
 .upload_card button:hover{
   background-color: #0056b3;
+}
+
+.error {
+  color: red;
+  font-weight: bold;
 }

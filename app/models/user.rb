@@ -12,7 +12,6 @@ class User < ApplicationRecord
     def password_complexity
       return unless password.present?
   
-      # Check for a capital letter
       unless password =~ /[A-Z]/
         errors.add(:password, "must include at least one capital letter")
       end
