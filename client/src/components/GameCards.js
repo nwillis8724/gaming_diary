@@ -4,8 +4,7 @@ import { useState, useEffect } from "react";
 function GameCards({game, gamesArray, user, i, setGamesArray}){
     const [commentValues, setCommentValues] = useState([""])
     const [ratingValues, setRatingValues] = useState([""])
-    const [commentUsers, setCommentUsers] = useState({});
-    
+
 
     function resetCommentValue(i) {
         const newCommentValues = [...commentValues];

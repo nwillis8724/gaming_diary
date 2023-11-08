@@ -24,7 +24,7 @@ function Login({ setUser, user }) {
 
                 setTimeout(() => {
                   setErrors("");
-                }, 3000);
+                }, 5000);
               });
             } else if (!r.ok) {
               setErrors("An error occurred.");
@@ -49,7 +49,13 @@ function Login({ setUser, user }) {
                     <input className="password" value ={password} onChange={(e) => setPassword(e.target.value)} type="password" placeholder="password"></input>
                     <button>Login</button>
                 </form>
-                {errors && <p className="error">{errors}</p>} {/* Display error message */}
+                {errors.length > 0 && (
+                        <div className="error">
+                            {errors.map((error, index) => (
+                            <div key={index}>{error}</div>
+                            ))}
+                        </div>
+                    )}
             </div>
         </div>
     )

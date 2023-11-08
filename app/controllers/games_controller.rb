@@ -21,15 +21,12 @@ class GamesController < ApplicationController
       
 
     def create
-        if session[:user_id].present?
-            game = Game.create(game_params)
-            
+            game = Game.create(game_params)          
             if game.valid?
                 render json: game
             else
                 render json: { errors: game.errors.full_messages }, status: :unprocessable_entity
             end
-        end
     end
 
     def update
