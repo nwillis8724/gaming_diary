@@ -7,7 +7,6 @@ function UploadCard() {
     const [newGenre, setNewGenre] = useState("");
     const [releaseDate, setReleaseDate] = useState("");
     const [newImage, setNewImage] = useState("");
-    const [errorMessage, setErrorMessage] = useState("");
     const [errors, setErrors] = useState([]);
     const navigate = useNavigate();
 
@@ -35,16 +34,7 @@ function UploadCard() {
             },
             body: JSON.stringify(newUpload),
         })
-        // .then((response) => {
-        //     if (response.ok) {
-        //         navigate("/games_display");
-        //     } else {
-        //         setErrors("Upload failed. Please try again.");
-        //         setTimeout(() => {
-        //             setErrors("");
-        //         }, 3000);
-        //     }
-        // })
+
         .then((r) => {
             if (r.status === 401) {
               r.json().then((data) => {
@@ -69,10 +59,6 @@ function UploadCard() {
           })
         .catch((error) => {
             console.error("An error occurred:", error);
-            setErrorMessage("An error occurred. Please try again.");
-            setTimeout(() => {
-                setErrorMessage("");
-            }, 5000);
         });
     }
 

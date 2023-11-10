@@ -3,7 +3,6 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import GameDisplay from './components/GameDisplay';
 import Login from './components/Login';
 import { useState, useEffect } from "react";
-import { useHistory } from "react-router-dom";
 import NavBar from './components/NavBar';
 import SignUp from './components/SignUp';
 import Profile from './components/Profile';

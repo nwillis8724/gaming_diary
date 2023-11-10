@@ -1,9 +1,10 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 function GameCards({game, gamesArray, user, i, setGamesArray}){
     const [commentValues, setCommentValues] = useState([""])
     const [ratingValues, setRatingValues] = useState([""])
+    const [dummyArray, setDummyArray] = useState([])
 
 
     function resetCommentValue(i) {
@@ -23,8 +24,9 @@ function GameCards({game, gamesArray, user, i, setGamesArray}){
           text: commentValues[i],
           rating: ratingValues[i],
           game_id: game.id,
-          user_id: `${user.id}`,
         };
+      
+        console.log(newComment);
       
         fetch("/comments", {
           method: "POST",
@@ -66,13 +68,12 @@ function GameCards({game, gamesArray, user, i, setGamesArray}){
           })
           .then(() => {
             const updatedGames = gamesArray.map((game) => {
-              if (game.id === comment.game_id) {
-                game.comments = game.comments.filter((c) => c.id !== comment.id);
-              }
-              return game;
+              return {
+                ...game,
+                comments: game.comments.filter((c) => c.id !== comment.id),
+              };
             });
-      
-            setGamesArray(updatedGames);
+            setGamesArray([...updatedGames]);
           })
           .catch((error) => {
             console.error('Error deleting game:', error);
@@ -108,18 +109,23 @@ function GameCards({game, gamesArray, user, i, setGamesArray}){
             <h3 className="game_card_text">Genre: {game.genre}</h3>
             <h3 className="game_card_text">Release Date: {game.release_date}</h3>
             <div className="comment_section">
-              {game.comments && game.comments.length > 0 ? (
-                game.comments.map((comment, i) => (
-                  <div className="comment" key={i}>
-                    <button className="delete_button" onClick={(e) => handleDeleteComment(comment)}> 🗑️ </button>
-                    <p>{comment.text}</p>
-                    <p>{comment.rating}/5</p>
+            {game.comments && game.comments.length > 0 ? (
+              game.comments.map((comment, i) => (
+                
+                <div className="comment" key={i}>
+                  <button className="delete_button" onClick={(e) => handleDeleteComment(comment)}> 🗑️ </button>
+                  <p>{comment.text}</p>
+                  <p>{comment.rating}/5</p>
+                  {comment.user && comment.user.username ? (
                     <p>{comment.user.username}</p>
-                  </div>
-                ))
-              ) : (
-                <p>No comments yet.</p>
-              )}
+                  ) : (
+                    <p>Unknown User</p>
+                  )}
+                </div>
+              ))
+            ) : (
+              <p>No comments yet.</p>
+            )}
               <div>
                 <form onSubmit={(e) => handleComment(e, game, i)}>
                   <input

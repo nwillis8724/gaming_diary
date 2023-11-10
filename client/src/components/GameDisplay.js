@@ -4,10 +4,8 @@ import GameCards from "./GameCards";
 
 
 
-function GameDisplay({user}) {
+function GameDisplay({ user }) {
   const [gamesArray, setGamesArray] = useState([]);
-
-
 
     useEffect(() => {
         fetch("/games")

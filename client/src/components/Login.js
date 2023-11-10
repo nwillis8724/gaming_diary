@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
 
 function Login({ setUser, user }) {
@@ -20,14 +20,14 @@ function Login({ setUser, user }) {
         .then((r) => {
             if (r.status === 401) {
               r.json().then((data) => {
-                setErrors(data.error);
+                setErrors([data.error]);
 
                 setTimeout(() => {
                   setErrors("");
                 }, 5000);
               });
             } else if (!r.ok) {
-              setErrors("An error occurred.");
+              setErrors(["An error occurred."]);
             } else {
               r.json().then((response) => {
                 setUser(response);

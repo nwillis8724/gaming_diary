@@ -1,54 +1,66 @@
 class CommentsController < ApplicationController
-rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_response
-before_action :authorize
-
-
-    def index
-        comments = Comment.includes(:user).all
-        render json: comments.as_json(include: :user), status: :ok
-    end
-
-    def show
-        comment = Comment.find(params[:id])
-        render json: comment
-    end
+    rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_response
+     before_action :authorize, only: [:update, :destroy]
+    before_action :set_comment, only: [:update, :destroy]
+    before_action :check_owner, only: [:update, :destroy]
 
     def create
-        comment = Comment.create(comment_params)       
-            if comment.valid?
-                render json: comment
-            else
-                render json: { errors: comment.errors.full_messages }, status: :unprocessable_entity
-            end
+        comment = Comment.create(comment_params)
+        comment.user = current_user
+        puts current_user.username
+    
+        if comment.save
+          render json: comment, status: :created
+        else
+          render json: { errors: comment.errors.full_messages }, status: :unprocessable_entity
+        end
+      end
+  
+    def index
+      comments = Comment.includes(:user).all
+      render json: comments, each_serializer: CommentSerializer, status: :ok
     end
-
+  
+    def show
+      comment = Comment.find(params[:id])
+      render json: comment, serializer: CommentSerializer
+    end
+  
     def update
-        comment = find_comment
-        comment.update(comment_params)
-        render json: comment
-    end
-
-    def destroy
-        comment = find_comment
-        comment.destroy
+        if @comment.update(comment_params)
+          render json: @comment, serializer: CommentSerializer
+        else
+          render json: { errors: @comment.errors.full_messages }, status: :unprocessable_entity
+        end
+      end
+    
+      def destroy
+        @comment.destroy
         head :no_content
-    end
-
-    private
-
-    def authorize 
-        return render json: { error: "Not authorized" }, status: :unauthorized unless session.include? :user_id
       end
-
+    
+      private
+    
+      def set_comment
+        @comment = Comment.find(params[:id])
+      end
+    
+      def check_owner
+        unless @comment.user == current_user
+          render json: { error: "You are not authorized to perform this action" }, status: :unauthorized
+        end
+      end
+  
     def comment_params
-        params.permit(:text, :rating, :game_id, :user_id)
+      params.require(:comment).permit(:text, :rating, :game_id)
     end
-
+  
     def find_comment
-        comment = Comment.find(params[:id])
+      comment = Comment.find(params[:id])
     end
-
+  
     def render_not_found_response
-        render json: { error: "Comment not found" }, status: :not_found
-      end
-end
+      render json: { error: "Comment not found" }, status: :not_found
+    end
+  end
+  
