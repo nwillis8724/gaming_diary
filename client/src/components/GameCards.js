@@ -4,7 +4,8 @@ import { useState } from "react";
 function GameCards({game, gamesArray, user, i, setGamesArray}){
     const [commentValues, setCommentValues] = useState([""])
     const [ratingValues, setRatingValues] = useState([""])
-    const [error, setError] = useState([])
+    const [commentDeleteError, setCommentDeleteError] = useState(null)
+    const [commentDeleteErrorTimer, setCommentDeleteErrorTimer] = useState(null);
 
 
     function resetCommentValue(i) {
@@ -15,6 +16,10 @@ function GameCards({game, gamesArray, user, i, setGamesArray}){
         const newRatingValues = [...ratingValues];
         newRatingValues[i] = "";
         setRatingValues(newRatingValues);
+      }
+
+      function clearCommentDeleteError() {
+        setCommentDeleteError(null);
       }
 
       function handleComment(e, game, i) {
@@ -58,26 +63,32 @@ function GameCards({game, gamesArray, user, i, setGamesArray}){
       }
 
       function handleDeleteComment(comment) {
-        fetch(`/comments/${comment.id}`, {
-          method: "DELETE",
-        })
-          .then((response) => {
-            if (!response.ok) {
-              console.log('Network response was not ok');
-            }
+        if (user.id === comment.user.id) {
+          fetch(`/comments/${comment.id}`, {
+            method: "DELETE",
           })
-          .then(() => {
-            const updatedGames = gamesArray.map((game) => {
-              return {
-                ...game,
-                comments: game.comments.filter((c) => c.id !== comment.id),
-              };
+            .then((response) => {
+              if (!response.ok) {
+                console.log('Network response was not ok');
+              }
+            })
+            .then(() => {
+              const updatedGames = gamesArray.map((game) => {
+                return {
+                  ...game,
+                  comments: game.comments.filter((c) => c.id !== comment.id),
+                };
+              });
+              setGamesArray([...updatedGames]);
+            })
+            .catch((error) => {
+              console.error('Error deleting game:', error);
             });
-            setGamesArray([...updatedGames]);
-          })
-          .catch((error) => {
-            console.error('Error deleting game:', error);
-          });
+        } else {
+          setCommentDeleteError("You did not post this.");
+          const timer = setTimeout(clearCommentDeleteError, 5000);
+          setCommentDeleteErrorTimer(timer);
+        }
       }
 
       function handleDeleteGame(game) {
@@ -97,7 +108,6 @@ function GameCards({game, gamesArray, user, i, setGamesArray}){
             console.error('Error deleting game:', error);
         });
     }
-    console.log(game)
     return(
         <div className="game_card"  key={i}>
             <button className="delete_button" onClick={(e) => handleDeleteGame(game)}> 🗑️ </button>
@@ -111,7 +121,6 @@ function GameCards({game, gamesArray, user, i, setGamesArray}){
             <div className="comment_section">
             {game.comments && game.comments.length > 0 ? (
               game.comments.map((comment, i) => {
-                // console.log(comment)
                 return (
                 <div className="comment" key={i}>
                   <button className="delete_button" onClick={(e) => handleDeleteComment(comment)}> 🗑️ </button>
@@ -127,6 +136,9 @@ function GameCards({game, gamesArray, user, i, setGamesArray}){
             ) : (
               <p>No comments yet.</p>
             )}
+            {commentDeleteError && (
+        <div className="error">{commentDeleteError}</div>
+      )}
               <div>
                 <form onSubmit={(e) => handleComment(e, game, i)}>
                   <input

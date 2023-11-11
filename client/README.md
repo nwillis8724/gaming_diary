@@ -6,10 +6,6 @@ sudo service postgresql start
  git commit -m ""
  git push -u origin main
 
-To-do:
-    finish /me
-    add and delete games
-
 # Gaming Diary
 
 Gaming Diary is a social media site that allows you to keep track of your favorite games and even see what other people thing about it.

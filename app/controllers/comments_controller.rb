@@ -25,13 +25,13 @@ class CommentsController < ApplicationController
       render json: comment, include: { user: { only: :username } }, serializer: CommentSerializer
     end
   
-    def update
-        if @comment.update(comment_params)
-          render json: @comment, serializer: CommentSerializer
-        else
-          render json: { errors: @comment.errors.full_messages }, status: :unprocessable_entity
-        end
-      end
+    # def update
+    #     if @comment.update(comment_params)
+    #       render json: @comment, serializer: CommentSerializer
+    #     else
+    #       render json: { errors: @comment.errors.full_messages }, status: :unprocessable_entity
+    #     end
+    #   end
     
       def destroy
         @comment.destroy
