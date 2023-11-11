@@ -1,10 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 
 function GameCards({game, gamesArray, user, i, setGamesArray}){
     const [commentValues, setCommentValues] = useState([""])
     const [ratingValues, setRatingValues] = useState([""])
-    const [dummyArray, setDummyArray] = useState([])
+    const [error, setError] = useState([])
 
 
     function resetCommentValue(i) {
@@ -97,7 +97,7 @@ function GameCards({game, gamesArray, user, i, setGamesArray}){
             console.error('Error deleting game:', error);
         });
     }
-
+    console.log(game)
     return(
         <div className="game_card"  key={i}>
             <button className="delete_button" onClick={(e) => handleDeleteGame(game)}> 🗑️ </button>
@@ -110,8 +110,9 @@ function GameCards({game, gamesArray, user, i, setGamesArray}){
             <h3 className="game_card_text">Release Date: {game.release_date}</h3>
             <div className="comment_section">
             {game.comments && game.comments.length > 0 ? (
-              game.comments.map((comment, i) => (
-                
+              game.comments.map((comment, i) => {
+                // console.log(comment)
+                return (
                 <div className="comment" key={i}>
                   <button className="delete_button" onClick={(e) => handleDeleteComment(comment)}> 🗑️ </button>
                   <p>{comment.text}</p>
@@ -122,7 +123,7 @@ function GameCards({game, gamesArray, user, i, setGamesArray}){
                     <p>Unknown User</p>
                   )}
                 </div>
-              ))
+              )})
             ) : (
               <p>No comments yet.</p>
             )}

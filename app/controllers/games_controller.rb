@@ -1,14 +1,22 @@
 class GamesController < ApplicationController
   rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_response
-  before_action :authorize
+  before_action :authorize, except: [:index]
 
   def index
-    games = Game.includes(comments: :user).all
-    render json: games, each_serializer: GameSerializer, status: :ok
+    games = Game.includes(comments: :user)
+    render json: games.as_json(
+      include: {
+        comments: {
+          include: { user: { only: [:id, :username] } },
+          only: [:id, :text, :rating]
+        }
+      },
+      only: [:id, :title, :platform, :genre, :release_date, :image]
+    )
   end
 
   def show
-    game = Game.find(params[:id])
+    game = Game.includes(comments: [:user]).find(params[:id])
     render json: game, serializer: GameSerializer
   end
 

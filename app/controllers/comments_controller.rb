@@ -5,25 +5,24 @@ class CommentsController < ApplicationController
     before_action :check_owner, only: [:update, :destroy]
 
     def create
-        comment = Comment.create(comment_params)
-        comment.user = current_user
-        puts current_user.username
+      user = current_user
+      comment = user.comments.build(comment_params)
     
-        if comment.save
-          render json: comment, status: :created
-        else
-          render json: { errors: comment.errors.full_messages }, status: :unprocessable_entity
-        end
+      if comment.save
+        render json: comment, status: :created
+      else
+        render json: { errors: comment.errors.full_messages }, status: :unprocessable_entity
       end
-  
-    def index
-      comments = Comment.includes(:user).all
-      render json: comments, each_serializer: CommentSerializer, status: :ok
     end
   
     def show
       comment = Comment.find(params[:id])
-      render json: comment, serializer: CommentSerializer
+      render json: comment, include: { user: { only: :username } }, serializer: CommentSerializer
+    end
+  
+    def show
+      comment = Comment.find(params[:id])
+      render json: comment, include: { user: { only: :username } }, serializer: CommentSerializer
     end
   
     def update
