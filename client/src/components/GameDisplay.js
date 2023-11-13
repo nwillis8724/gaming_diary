@@ -1,10 +1,13 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import GameCards from "./GameCards";
+import { UserContext } from "../contexts/UserContext";
 
 
 
-function GameDisplay({ user }) {
+function GameDisplay() {
+  const {user} = useContext(UserContext)
+
   const [gamesArray, setGamesArray] = useState([]);
 
     useEffect(() => {

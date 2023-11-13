@@ -63,7 +63,7 @@ function GameCards({game, gamesArray, user, i, setGamesArray}){
       }
 
       function handleDeleteComment(comment) {
-        if (user.id === comment.user.id) {
+        if (user.id === comment.user_id) {
           fetch(`/comments/${comment.id}`, {
             method: "DELETE",
           })
@@ -126,11 +126,7 @@ function GameCards({game, gamesArray, user, i, setGamesArray}){
                   <button className="delete_button" onClick={(e) => handleDeleteComment(comment)}> 🗑️ </button>
                   <p>{comment.text}</p>
                   <p>{comment.rating}/5</p>
-                  {comment.user && comment.user.username ? (
-                    <p>{comment.user.username}</p>
-                  ) : (
-                    <p>Unknown User</p>
-                  )}
+                  <p>{comment.username}</p>
                 </div>
               )})
             ) : (

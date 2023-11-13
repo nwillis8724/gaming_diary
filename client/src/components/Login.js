@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 
-function Login({ setUser, user }) {
+function Login({ onLogin }) {
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
     const [errors, setErrors] = useState([]);
@@ -30,7 +30,7 @@ function Login({ setUser, user }) {
               setErrors(["An error occurred."]);
             } else {
               r.json().then((response) => {
-                setUser(response);
+                onLogin(response);
                 console.log("Login successful");
               });
             }

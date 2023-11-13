@@ -1,13 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import bcrypt from 'bcryptjs'; 
+import { UserContext } from "../contexts/UserContext";
 
-function Profile({ user }) {
+function Profile() {
+  const {user} = useContext(UserContext)
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [errors, setErrors] = useState([]);
   const legibleDate = new Date(user.created_at).toLocaleDateString();
 
   function handlePasswordChange(e) {
+
+
     e.preventDefault();
 
     bcrypt.compare(currentPassword, user.password_digest, (err, result) => {

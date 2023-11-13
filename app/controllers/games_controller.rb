@@ -4,26 +4,18 @@ class GamesController < ApplicationController
 
   def index
     games = Game.includes(comments: :user)
-    render json: games.as_json(
-      include: {
-        comments: {
-          include: { user: { only: [:id, :username] } },
-          only: [:id, :text, :rating]
-        }
-      },
-      only: [:id, :title, :platform, :genre, :release_date, :image]
-    )
+    render json: games
   end
 
   def show
     game = Game.includes(comments: [:user]).find(params[:id])
-    render json: game, serializer: GameSerializer
+    render json: game
   end
 
   def create
     game = Game.create(game_params)
     if game.valid?
-      render json: game, serializer: GameSerializer
+      render json: game
     else
       render json: { errors: game.errors.full_messages }, status: :unprocessable_entity
     end
@@ -32,7 +24,7 @@ class GamesController < ApplicationController
   def update
     game = find_game
     game.update(game_params)
-    render json: game, serializer: GameSerializer
+    render json: game
   end
 
   def destroy
