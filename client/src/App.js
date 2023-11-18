@@ -12,9 +12,6 @@ import { UserContext } from './contexts/UserContext';
 
 function App() {
   const {user, setUser} = useContext(UserContext)
-  
-  
-  console.log(user)
 
   function onLogin(user) {
     setUser(user);

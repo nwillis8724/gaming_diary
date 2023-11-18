@@ -19,7 +19,6 @@ function Profile() {
         console.error("An error occurred:", err);
         setErrors(["An unexpected error occurred. Please try again."]);
       } else if (result) {
-        console.log("Password is correct");
         const newPasswordData = {
           password: newPassword,
         };

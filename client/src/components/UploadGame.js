@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 function UploadCard() {
@@ -10,9 +10,6 @@ function UploadCard() {
     const [errors, setErrors] = useState([]);
     const navigate = useNavigate();
 
-    useEffect(() => {
-        console.log(errors, "useEffect")
-    }, [errors]);
 
     function handleUpload(e) {
         e.preventDefault();
@@ -25,8 +22,6 @@ function UploadCard() {
             image: newImage,
         };
 
-        console.log(newUpload);
-
         fetch("/games", {
             method: "POST",
             headers: {
@@ -38,7 +33,6 @@ function UploadCard() {
         .then((r) => {
             if (r.status === 401) {
               r.json().then((data) => {
-                console.log("errorData")
                 setErrors(data.error);
 
                 setTimeout(() => {
@@ -46,7 +40,6 @@ function UploadCard() {
                 }, 3000);
               });
             } else if (!r.ok) {
-                console.log("non-ok")
                 r.json().then((data) => {
                     setErrors(data.errors);
                     setTimeout(() => {

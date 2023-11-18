@@ -1,20 +1,7 @@
-sudo service postgresql start
-
- npm run build --prefix client
-
- git add .
- git commit -m ""
- git push -u origin main
-
-
-add useContext, check phase 4 disc
-
-add update to comments
-
 
 # Gaming Diary
 
-Gaming Diary is a social media site that allows you to keep track of your favorite games and even see what other people thing about it.
+Gaming Diary is a social media site that allows you to keep track of your favorite games and even see what other people think about it.
 
 ## User Profiles
 

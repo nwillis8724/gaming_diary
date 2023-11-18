@@ -6,7 +6,7 @@ import { UserContext } from "../contexts/UserContext";
 
 
 function GameDisplay() {
-  const {user} = useContext(UserContext)
+  // const {user} = useContext(UserContext)
 
   const [gamesArray, setGamesArray] = useState([]);
 
@@ -20,7 +20,7 @@ function GameDisplay() {
     <div className="App">
       {gamesArray.map((game, i) => {
         return (
-          <GameCards key={i} gamesArray={gamesArray} game={game} user={user} setGamesArray={setGamesArray} i={i}/>
+          <GameCards key={i} gamesArray={gamesArray} game={game} setGamesArray={setGamesArray} i={i}/>
         );
       })}
       <h1> </h1>

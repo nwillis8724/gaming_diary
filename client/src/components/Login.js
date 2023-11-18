@@ -31,7 +31,6 @@ function Login({ onLogin }) {
             } else {
               r.json().then((response) => {
                 onLogin(response);
-                console.log("Login successful");
               });
             }
           })

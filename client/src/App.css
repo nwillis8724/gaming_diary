@@ -121,8 +121,30 @@
   font-size: 7px;
 }
 
+
 .delete_button:hover {
   background-color: rgb(245, 207, 207);
+  transform: scale(1.2);
+  box-shadow: 0 0 4px #111;
+  transition: .3s;
+}
+
+.edit_button {
+  float: right;
+  width: 25px;
+  height: 25px;
+  font-size: 12px;
+  border-radius: 25px;
+  border: 2px solid blue;
+  background-color: #fff;
+  cursor: pointer;
+  box-shadow: 0 0 10px #333;
+  overflow: hidden;
+  transition: .5s;
+}
+
+.edit_button:hover {
+  background-color: lightblue;
   transform: scale(1.2);
   box-shadow: 0 0 4px #111;
   transition: .3s;
@@ -274,5 +296,32 @@
 .error {
   color: red;
   font-weight: bold;
+}
+
+.edit_form {
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+}
+
+.edit_form_text,
+.edit_form_rating {
+  margin-bottom: 5px;
+  padding: 8px;
+  font-size: 14px;
+}
+
+.edit_form_button {
+  width: 100%;
+  padding: 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.edit_form_button:hover {
+  background-color: #0056b3;
 }
 
