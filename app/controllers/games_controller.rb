@@ -1,6 +1,7 @@
 class GamesController < ApplicationController
   rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_response
-  before_action :authorize, except: [:index]
+  # before_action :authorize, except: [:index, :reviews_by_genre]
+
 
   def index
     games = Game.includes(comments: :user)
