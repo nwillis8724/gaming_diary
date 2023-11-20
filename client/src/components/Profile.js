@@ -10,9 +10,11 @@ function Profile() {
   const legibleDate = new Date(user.created_at).toLocaleDateString();
 
   function handlePasswordChange(e) {
-
-
     e.preventDefault();
+
+    console.log(user)
+
+    console.log(currentPassword, user.password_digest)
 
     bcrypt.compare(currentPassword, user.password_digest, (err, result) => {
       if (err) {
@@ -30,6 +32,7 @@ function Profile() {
           },
           body: JSON.stringify(newPasswordData),
         })
+        
           .then((response) => {
             if (response.ok) {
               setErrors(["Password changed successfully."]);
