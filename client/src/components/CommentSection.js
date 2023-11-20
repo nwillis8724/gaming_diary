@@ -109,58 +109,55 @@ function CommentSection({game, gamesArray, i, setGamesArray}){
       }
     
       function handleUpdateComment(e, comment) {
-        e.preventDefault();  
-        const updatedComment ={
-            text: editedText,
-            rating: editedRating,
-        }
-
-        fetch(`/comments/${comment.id}`,   {
-                method: "PATCH",
-                headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify(updatedComment),
+        e.preventDefault();
+        const updatedComment = {
+          text: editedText,
+          rating: editedRating,
+        };
+      
+        fetch(`/comments/${comment.id}`, {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(updatedComment),
         })
-        .then((response) => {
-
-            if (response.status === 401){
-                response.json().then((data) =>{
-                    console.log(data.errors, 'Unauthorized')
-                })
+          .then((response) => {
+            if (response.status === 401) {
+              response.json().then((data) => {
+                console.log(data.errors, 'Unauthorized');
+              });
             } else if (!response.ok) {
-              response.json().then((data) =>{
+              response.json().then((data) => {
                 setUpdateErrors(data.errors);
                 const timer = setTimeout(clearCommentDeleteError, 5000);
                 setErrorTimer(timer);
-            })
-            throw new Error('Network response was not ok');
+              });
+              throw new Error('Network response was not ok');
             }
             return response.json();
           })
           .then((updatedComment) => {
             console.log('Comment updated successfully:', updatedComment);
+
+            const commentUpdatedGames = gamesArray.map((game) => {
+              const updatedComments = game.comments.map((c) => {
+                if (c.id === comment.id) {
+                  return { ...c, ...updatedComment };
+                }
+                return c;
+              });
+              return { ...game, comments: updatedComments };
+            });
+
+            setGamesArray(commentUpdatedGames);
+            setEditMode(null);
           })
           .catch((error) => {
             console.error('Error updating comment:', error);
+
           });
-          const commentUpdatedGames = gamesArray.map((game) => {
-            const updatedComments = game.comments.map((c) => {
-              if (c.id === comment.id) {
-                return { ...c, ...updatedComment };
-              }
-              return c;
-            });
-            return { ...game, comments: updatedComments };
-        })
-        if (updateErrors != null){
-          setGamesArray(commentUpdatedGames);
-          setEditMode(null)
-        } else{
-          setEditMode(null)
-        }
-    }
-    
+      }
       return (
         <div className="comment_section">
           {game.comments && game.comments.length > 0 ? (
