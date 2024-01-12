@@ -5,10 +5,13 @@ function Login({ onLogin }) {
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
     const [errors, setErrors] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
 
 
     function loginUser(e) {
         e.preventDefault();
+
+        setIsLoading(true);
     
         fetch("/login", {
           method: "POST",
@@ -36,6 +39,9 @@ function Login({ onLogin }) {
           })
           .catch((error) => {
             console.error("Fetch error:", error);
+          })
+          .finally(() => {
+            setIsLoading(false);
           });
       }
 
@@ -46,7 +52,7 @@ function Login({ onLogin }) {
                     <h2>Log In</h2>
                     <input className="username" value={username} onChange={(e) => setUsername(e.target.value)} placeholder="user"></input>
                     <input className="password" value ={password} onChange={(e) => setPassword(e.target.value)} type="password" placeholder="password"></input>
-                    <button>Login</button>
+                    <button>{isLoading ? "Logging in..." : "Login"}</button>
                 </form>
                 {errors.length > 0 && (
                         <div className="error">
