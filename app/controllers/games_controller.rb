@@ -3,6 +3,21 @@ class GamesController < ApplicationController
   # before_action :authorize, except: [:index, :reviews_by_genre]
 
 
+
+  def game_comments
+    #return the games that have n or more comments
+    #first get all the games
+    #iterate through the games and check comment.count
+    #return all the games in which comment.count is > :n
+    desiredcount = params[:n]
+    games = Game.includes(:comments)
+    # byebug
+    gameswithcomments = games.select{|game| game.comments.count >= desiredcount.to_i}
+    render json: gameswithcomments
+  end
+
+
+
   def index
     games = Game.includes(comments: :user)
     render json: games
