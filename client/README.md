@@ -10,7 +10,7 @@ You can log in and update your password to stay on track. You can even see when 
 
 ## Display
 
-The display screen consists of game cards that include the game, platform, genre, release date, as well as a section for comment. All of which can be uploaded or deleted. Comment are directly added from the card
+The display screen consists of game cards that include the game, platform, genre, release date, as well as a section for comment. All of which can be uploaded or deleted. Comment are directly added from the card.
 
 ## Upload
 
