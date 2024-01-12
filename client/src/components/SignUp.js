@@ -4,9 +4,11 @@ function SignUp() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState([]);
-
+  const [isLoading, setIsLoading] = useState(false);
   function handleSignUp(e) {
     e.preventDefault();
+
+    setIsLoading(true);
 
     fetch("/signup", {
       method: "POST",
@@ -21,15 +23,14 @@ function SignUp() {
         } else {
           response.json().then((data) => {
             setErrors(data.errors);
-            
-            setTimeout(() => {
-              setErrors([]);
-            }, 5000);
           });
         }
       })
       .catch((error) => {
         console.error("An error occurred:", error);
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
   }
 
@@ -48,8 +49,10 @@ function SignUp() {
           onChange={(e) => setPassword(e.target.value)}
           type="password"
         />
-        <p className="disclosure">please include a special character and capital in the password</p>
-        <button>Submit</button>
+        <p className="disclosure">Please include a special character and capital in the password</p>
+        <button type="submit" disabled={isLoading}>
+          {isLoading ? "Loading..." : "Submit"}
+        </button>
         {errors.length > 0 && (
           <div className="error">
             {errors.map((error, index) => (
